@@ -15,6 +15,9 @@ export const fetchProducts = createAsyncThunk<Product[]>(
       title: product.title,
       description: product.description,
       liked: false,
+      category: product.category,
+      price: product.price,
+      brand: product.brand,
     }));
   }
 );

@@ -3,6 +3,9 @@ export type Product = {
   title: string;
   description: string;
   liked?: boolean;
+  category?: string;
+  price?: number;
+  brand?: string;
 };
 
 export type ProductsState = {
@@ -15,6 +18,9 @@ export type ProductCardType = {
   title: string;
   description: string;
   liked?: boolean;
+  category?: string;
+  brand?: string;
+  price?: number;
   handleLike: (id: number) => void;
   deleteProductCard: (id: number) => void;
 };

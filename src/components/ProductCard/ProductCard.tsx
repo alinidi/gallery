@@ -1,6 +1,7 @@
 import { Heart, TrashIcon } from 'lucide-react';
 import type { ProductCardType } from '../../types/product';
 import s from './ProductCard.module.scss';
+import { useNavigate } from 'react-router-dom';
 
 export const ProductCard = ({
   id,
@@ -10,8 +11,16 @@ export const ProductCard = ({
   handleLike,
   deleteProductCard,
 }: ProductCardType) => {
+  const navigate = useNavigate();
+
+  const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    const target = e.target as HTMLElement;
+    if (target.closest('button') || target.closest('svg')) return;
+    navigate(`/products/${id}`);
+  };
+
   return (
-    <div className={s.productCard}>
+    <div className={s.productCard} onClick={handleClick}>
       <h2 className={s.productCard__title}>{title}</h2>
       <p className={s.productCard__text}>{description}</p>
       <div className={s.productCard__buttons}>
