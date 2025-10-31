@@ -1,0 +1,28 @@
+.productCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  gap: 0.8rem;
+  padding: 1.2rem;
+  border-radius: 1rem;
+  max-width: 20rem;
+  height: 12rem;
+  background-color: rgb(49, 73, 56);
+}
+
+.productCard__text {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.productCard__buttons {
+  display: inherit;
+  justify-content: space-evenly;
+  border-top: 0.11rem solid black;
+  padding-top: 0.8rem;
+}
+
+.productCard__buttons__icon {
+  cursor: pointer;
+}

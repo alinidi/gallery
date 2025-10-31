@@ -11,8 +11,10 @@ export type ProductsState = {
 };
 
 export type ProductCardType = {
+  id: number;
   title: string;
   description: string;
+  liked?: boolean;
   handleLike: (id: number) => void;
   deleteProductCard: (id: number) => void;
 };

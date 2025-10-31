@@ -7,6 +7,7 @@ import {
   fetchProducts,
   toggleLike,
 } from '../../store/productSlice';
+import s from './ProductsList.module.scss';
 
 export const ProductsList = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -29,14 +30,16 @@ export const ProductsList = () => {
   }
 
   return (
-    <div>
+    <div className={s.productsList}>
       <h1>Products List</h1>
-      <div>
+      <div className={s.productsList__list}>
         {items.map((p) => (
           <div key={p.id}>
             <ProductCard
+              id={p.id}
               title={p.title}
               description={p.description}
+              liked={p.liked}
               handleLike={handleLike}
               deleteProductCard={deleteProductCard}
             />

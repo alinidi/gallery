@@ -1,0 +1,10 @@
+.layoutHeader {
+  padding: 0.5rem;
+}
+
+.layoutHeader__nav {
+  display: flex;
+  justify-content: flex-end;
+  gap: 2rem;
+  padding-right: 2rem;
+}
