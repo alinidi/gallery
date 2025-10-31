@@ -6,7 +6,7 @@ import {
 import { getProducts } from '../api/getProducts';
 import type { Product, ProductsState } from '../types/product';
 
-const fetchProducts = createAsyncThunk<Product[]>(
+export const fetchProducts = createAsyncThunk<Product[]>(
   'products/fetchProducts',
   async () => {
     const products = await getProducts();
@@ -51,4 +51,4 @@ const productsSlice = createSlice({
 });
 
 export const { toggleLike, deleteProduct } = productsSlice.actions;
-export default productsSlice.reducer;
+export const productsReducer = productsSlice.reducer;
