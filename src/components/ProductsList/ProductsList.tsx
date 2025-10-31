@@ -13,6 +13,7 @@ export const ProductsList = () => {
   const { items, status } = useSelector((state: RootState) => state.products);
 
   useEffect(() => {
+    console.log('dispatching fetchProducts()');
     dispatch(fetchProducts());
   }, [dispatch]);
 
