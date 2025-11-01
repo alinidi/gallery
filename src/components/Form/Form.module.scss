@@ -1,0 +1,23 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  max-width: 30rem;
+  width: 100%;
+  margin: 0 auto;
+  padding: 1rem;
+  border: rgb(49, 73, 56) solid 0.3em;
+  border-radius: 1rem;
+}
+
+.form__field {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.2rem;
+}
+
+.form__error {
+  color: rgb(129, 38, 38);
+  text-align: end;
+  font-size: 0.9rem;
+}

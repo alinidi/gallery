@@ -16,9 +16,10 @@ export const ProductsList = () => {
   const [filter, setFilter] = useState<'all' | 'liked'>('all');
 
   useEffect(() => {
-    console.log('dispatching fetchProducts()');
-    dispatch(fetchProducts());
-  }, [dispatch]);
+    if (items.length === 0) {
+      dispatch(fetchProducts());
+    }
+  }, [dispatch, items.length]);
 
   if (status === 'pending') console.log('Pending');
   if (status === 'failed') console.log('Failed');
