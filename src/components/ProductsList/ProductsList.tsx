@@ -76,27 +76,29 @@ export const ProductsList = () => {
               </div>
             ))}
       </div>
-      <div>
-        <button
-          onClick={() => setCurrentPage(currentPage - 1)}
-          disabled={currentPage === 1}
-        >
-          Prev
-        </button>
-        {Array.from({
-          length: Math.ceil(filteredItems.length / itemsPerPage),
-        }).map((_, i) => (
-          <button key={i} onClick={() => setCurrentPage(i + 1)}>
-            {i + 1}
+      {filteredItems.length > 0 && (
+        <div>
+          <button
+            onClick={() => setCurrentPage(currentPage - 1)}
+            disabled={currentPage === 1}
+          >
+            Prev
           </button>
-        ))}
-        <button
-          onClick={() => setCurrentPage(currentPage + 1)}
-          disabled={currentPage === Math.ceil(items.length / itemsPerPage)}
-        >
-          Next
-        </button>
-      </div>
+          {Array.from({
+            length: Math.ceil(filteredItems.length / itemsPerPage),
+          }).map((_, i) => (
+            <button key={i} onClick={() => setCurrentPage(i + 1)}>
+              {i + 1}
+            </button>
+          ))}
+          <button
+            onClick={() => setCurrentPage(currentPage + 1)}
+            disabled={currentPage === Math.ceil(items.length / itemsPerPage)}
+          >
+            Next
+          </button>
+        </div>
+      )}
     </div>
   );
 };

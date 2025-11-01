@@ -1,9 +1,9 @@
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import ProductPage from './pages/ProductPage';
-import { Layout } from './layout/Layout';
 import { CardPage } from './pages/CardPage';
 import CreateProductPage from './pages/CreateProductPage';
+import { Layout } from './layout/layout';
 
 function App() {
   return (
