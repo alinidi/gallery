@@ -24,3 +24,7 @@ export type ProductCardType = {
   handleLike: (id: number) => void;
   deleteProductCard: (id: number) => void;
 };
+
+export type FilterType = {
+  handleFilter: (filter: string) => void;
+};

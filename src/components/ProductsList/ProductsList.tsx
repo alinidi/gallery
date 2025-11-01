@@ -1,17 +1,19 @@
 import { useDispatch, useSelector } from 'react-redux';
 import type { AppDispatch, RootState } from '../../store/store';
 import { ProductCard } from '../ProductCard/ProductCard';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import {
   deleteProduct,
   fetchProducts,
   toggleLike,
 } from '../../store/productSlice';
 import s from './ProductsList.module.scss';
+import { Filter } from '../Filter/Filter';
 
 export const ProductsList = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { items, status } = useSelector((state: RootState) => state.products);
+  const [filter, setFilter] = useState<'all' | 'liked'>('all');
 
   useEffect(() => {
     console.log('dispatching fetchProducts()');
@@ -29,22 +31,43 @@ export const ProductsList = () => {
     dispatch(deleteProduct(id));
   }
 
+  function handleFilter(filter: string) {
+    if (filter === 'all') setFilter('all');
+    if (filter === 'liked') setFilter('liked');
+  }
+
+  const likedCards = items.filter((item) => item.liked);
+
   return (
     <div className={s.productsList}>
       <h1>Products List</h1>
+      <Filter handleFilter={handleFilter} />
       <div className={s.productsList__list}>
-        {items.map((p) => (
-          <div key={p.id}>
-            <ProductCard
-              id={p.id}
-              title={p.title}
-              description={p.description}
-              liked={p.liked}
-              handleLike={handleLike}
-              deleteProductCard={deleteProductCard}
-            />
-          </div>
-        ))}
+        {filter === 'all'
+          ? items.map((p) => (
+              <div key={p.id}>
+                <ProductCard
+                  id={p.id}
+                  title={p.title}
+                  description={p.description}
+                  liked={p.liked}
+                  handleLike={handleLike}
+                  deleteProductCard={deleteProductCard}
+                />
+              </div>
+            ))
+          : likedCards.map((p) => (
+              <div key={p.id}>
+                <ProductCard
+                  id={p.id}
+                  title={p.title}
+                  description={p.description}
+                  liked={p.liked}
+                  handleLike={handleLike}
+                  deleteProductCard={deleteProductCard}
+                />
+              </div>
+            ))}
       </div>
     </div>
   );
