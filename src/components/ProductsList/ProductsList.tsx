@@ -12,17 +12,22 @@ import { Filter } from '../Filter/Filter';
 
 export const ProductsList = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const { items, status } = useSelector((state: RootState) => state.products);
+  const { items } = useSelector((state: RootState) => state.products);
   const [filter, setFilter] = useState<'all' | 'liked'>('all');
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const itemsPerPage = 12;
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const filteredItems =
+    filter === 'liked' ? items.filter((i) => i.liked) : items;
+  const currentItems = filteredItems.slice(indexOfFirstItem, indexOfLastItem);
 
   useEffect(() => {
     if (items.length === 0) {
       dispatch(fetchProducts());
     }
   }, [dispatch, items.length]);
-
-  if (status === 'pending') console.log('Pending');
-  if (status === 'failed') console.log('Failed');
 
   function handleLike(id: number) {
     dispatch(toggleLike(id));
@@ -35,6 +40,7 @@ export const ProductsList = () => {
   function handleFilter(filter: string) {
     if (filter === 'all') setFilter('all');
     if (filter === 'liked') setFilter('liked');
+    setCurrentPage(1);
   }
 
   const likedCards = items.filter((item) => item.liked);
@@ -45,7 +51,7 @@ export const ProductsList = () => {
       <Filter handleFilter={handleFilter} />
       <div className={s.productsList__list}>
         {filter === 'all'
-          ? items.map((p) => (
+          ? currentItems.map((p) => (
               <div key={p.id}>
                 <ProductCard
                   id={p.id}
@@ -69,6 +75,27 @@ export const ProductsList = () => {
                 />
               </div>
             ))}
+      </div>
+      <div>
+        <button
+          onClick={() => setCurrentPage(currentPage - 1)}
+          disabled={currentPage === 1}
+        >
+          Prev
+        </button>
+        {Array.from({
+          length: Math.ceil(filteredItems.length / itemsPerPage),
+        }).map((_, i) => (
+          <button key={i} onClick={() => setCurrentPage(i + 1)}>
+            {i + 1}
+          </button>
+        ))}
+        <button
+          onClick={() => setCurrentPage(currentPage + 1)}
+          disabled={currentPage === Math.ceil(items.length / itemsPerPage)}
+        >
+          Next
+        </button>
       </div>
     </div>
   );
