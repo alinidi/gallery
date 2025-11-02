@@ -12,10 +12,11 @@ import s from './ProductsList.module.scss';
 import { Filter } from '../Filter/Filter';
 import type { Product } from '../../types/product';
 import { Form } from '../common/Form/Form';
+import { BounceLoader } from 'react-spinners';
 
 export const ProductsList = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const { items } = useSelector((state: RootState) => state.products);
+  const { items, status } = useSelector((state: RootState) => state.products);
   const [filter, setFilter] = useState<'all' | 'liked'>('all');
   const [currentPage, setCurrentPage] = useState(1);
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
@@ -32,6 +33,14 @@ export const ProductsList = () => {
       dispatch(fetchProducts());
     }
   }, [dispatch, items.length]);
+
+  if (status === 'pending') {
+    return (
+      <div className={s.spinner}>
+        <BounceLoader color="white" />
+      </div>
+    );
+  }
 
   function handleLike(id: number) {
     dispatch(toggleLike(id));
@@ -104,7 +113,7 @@ export const ProductsList = () => {
         </div>
       )}
       {filteredItems.length > 0 && (
-        <div>
+        <div style={{ margin: '1rem' }}>
           <button
             onClick={() => setCurrentPage(currentPage - 1)}
             disabled={currentPage === 1}
