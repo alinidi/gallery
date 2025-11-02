@@ -17,15 +17,18 @@ import { BounceLoader } from 'react-spinners';
 export const ProductsList = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { items, status } = useSelector((state: RootState) => state.products);
-  const [filter, setFilter] = useState<'all' | 'liked'>('all');
+  const [filter, setFilter] = useState('all');
   const [currentPage, setCurrentPage] = useState(1);
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
 
   const itemsPerPage = 12;
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const filteredItems =
-    filter === 'liked' ? items.filter((i) => i.liked) : items;
+  const filteredItems = items.filter((item) => {
+    if (filter === 'all') return true;
+    if (filter === 'liked') return item.liked;
+    return item.category?.toLowerCase() === filter.toLowerCase();
+  });
   const currentItems = filteredItems.slice(indexOfFirstItem, indexOfLastItem);
 
   useEffect(() => {
@@ -50,46 +53,29 @@ export const ProductsList = () => {
     dispatch(deleteProduct(id));
   }
 
-  function handleFilter(filter: string) {
-    if (filter === 'all') setFilter('all');
-    if (filter === 'liked') setFilter('liked');
+  function handleFilter(value: string) {
+    setFilter(value);
     setCurrentPage(1);
   }
-
-  const likedCards = items.filter((item) => item.liked);
 
   return (
     <div className={s.productsList}>
       <h1>Products List</h1>
       <Filter handleFilter={handleFilter} />
       <div className={s.productsList__list}>
-        {filter === 'all'
-          ? currentItems.map((p) => (
-              <div key={p.id}>
-                <ProductCard
-                  id={p.id}
-                  title={p.title}
-                  description={p.description}
-                  liked={p.liked}
-                  handleLike={handleLike}
-                  deleteProductCard={deleteProductCard}
-                  onEdit={() => setEditingProduct(p)}
-                />
-              </div>
-            ))
-          : likedCards.map((p) => (
-              <div key={p.id}>
-                <ProductCard
-                  id={p.id}
-                  title={p.title}
-                  description={p.description}
-                  liked={p.liked}
-                  handleLike={handleLike}
-                  deleteProductCard={deleteProductCard}
-                  onEdit={() => setEditingProduct(p)}
-                />
-              </div>
-            ))}
+        {currentItems.map((p) => (
+          <div key={p.id}>
+            <ProductCard
+              id={p.id}
+              title={p.title}
+              description={p.description}
+              liked={p.liked}
+              handleLike={handleLike}
+              deleteProductCard={deleteProductCard}
+              onEdit={() => setEditingProduct(p)}
+            />
+          </div>
+        ))}
       </div>
       {editingProduct && (
         <div className={s.modal}>
