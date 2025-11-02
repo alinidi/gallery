@@ -4,17 +4,21 @@ import { ProductCard } from '../ProductCard/ProductCard';
 import { useEffect, useState } from 'react';
 import {
   deleteProduct,
+  editProduct,
   fetchProducts,
   toggleLike,
 } from '../../store/productSlice';
 import s from './ProductsList.module.scss';
 import { Filter } from '../Filter/Filter';
+import type { Product } from '../../types/product';
+import { Form } from '../common/Form/Form';
 
 export const ProductsList = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { items } = useSelector((state: RootState) => state.products);
   const [filter, setFilter] = useState<'all' | 'liked'>('all');
   const [currentPage, setCurrentPage] = useState(1);
+  const [editingProduct, setEditingProduct] = useState<Product | null>(null);
 
   const itemsPerPage = 12;
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -60,6 +64,7 @@ export const ProductsList = () => {
                   liked={p.liked}
                   handleLike={handleLike}
                   deleteProductCard={deleteProductCard}
+                  onEdit={() => setEditingProduct(p)}
                 />
               </div>
             ))
@@ -72,10 +77,32 @@ export const ProductsList = () => {
                   liked={p.liked}
                   handleLike={handleLike}
                   deleteProductCard={deleteProductCard}
+                  onEdit={() => setEditingProduct(p)}
                 />
               </div>
             ))}
       </div>
+      {editingProduct && (
+        <div className={s.modal}>
+          <div className={s.modal__container}>
+            <h2>Edit Product</h2>
+            <Form
+              defaultValues={editingProduct}
+              onSubmit={(data) => {
+                dispatch(
+                  editProduct({
+                    ...data,
+                    id: editingProduct.id,
+                    price: Number(data.price),
+                  })
+                );
+                setEditingProduct(null);
+              }}
+              onCancel={() => setEditingProduct(null)}
+            />
+          </div>
+        </div>
+      )}
       {filteredItems.length > 0 && (
         <div>
           <button

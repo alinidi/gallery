@@ -11,3 +11,28 @@
   gap: 2.5rem;
   margin-bottom: 2rem;
 }
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+}
+
+.modal__container {
+  background: white;
+  color: black;
+  padding: 2rem;
+  border-radius: 1rem;
+  max-width: 35rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}

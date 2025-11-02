@@ -41,6 +41,12 @@ const productsSlice = createSlice({
     addProduct(state, action: PayloadAction<Product>) {
       state.items.push(action.payload);
     },
+    editProduct(state, action: PayloadAction<Product>) {
+      const index = state.items.findIndex((p) => p.id === action.payload.id);
+      if (index !== -1) {
+        state.items[index] = { ...state.items[index], ...action.payload };
+      }
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchProducts.pending, (state) => {
@@ -56,5 +62,6 @@ const productsSlice = createSlice({
   },
 });
 
-export const { toggleLike, deleteProduct, addProduct } = productsSlice.actions;
+export const { toggleLike, deleteProduct, addProduct, editProduct } =
+  productsSlice.actions;
 export const productsReducer = productsSlice.reducer;

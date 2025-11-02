@@ -1,4 +1,4 @@
-import { Heart, TrashIcon } from 'lucide-react';
+import { Heart, Pen, TrashIcon } from 'lucide-react';
 import type { ProductCardType } from '../../types/product';
 import s from './ProductCard.module.scss';
 import { useNavigate } from 'react-router-dom';
@@ -10,6 +10,7 @@ export const ProductCard = ({
   liked,
   handleLike,
   deleteProductCard,
+  onEdit,
 }: ProductCardType) => {
   const navigate = useNavigate();
 
@@ -33,6 +34,7 @@ export const ProductCard = ({
           className={s.productCard__buttons__icon}
           onClick={() => deleteProductCard(id)}
         />
+        <Pen className={s.productCard__buttons__icon} onClick={onEdit} />
       </div>
     </div>
   );

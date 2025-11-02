@@ -1,13 +1,18 @@
 .productCard {
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: space-between;
   gap: 0.8rem;
   padding: 1.2rem;
   border-radius: 1rem;
-  max-width: 20rem;
+  width: 23rem;
   height: 12rem;
   background-color: rgb(49, 73, 56);
+}
+
+.productCard:hover {
+  background-color: rgb(67, 91, 74);
+  transition: 0.7s;
 }
 
 .productCard__text {

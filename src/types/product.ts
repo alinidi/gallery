@@ -23,8 +23,14 @@ export type ProductCardType = {
   price?: number;
   handleLike: (id: number) => void;
   deleteProductCard: (id: number) => void;
+  onEdit: () => void;
 };
 
 export type FilterType = {
   handleFilter: (filter: string) => void;
+};
+
+export type EditProductModalProps = {
+  product: Product;
+  onClose: () => void;
 };
