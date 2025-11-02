@@ -1,5 +1,5 @@
 import { useState, type ChangeEvent } from 'react';
-import type { FilterType } from '../../types/product';
+import type { FilterType } from '../../types/types';
 import { DropDown } from '../DropDown/DropDown';
 import s from './Filter.module.scss';
 

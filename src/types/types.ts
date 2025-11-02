@@ -34,3 +34,17 @@ export type EditProductModalProps = {
   product: Product;
   onClose: () => void;
 };
+
+export type PaginationType = {
+  setCurrentPage: (page: number) => void;
+  items: Product[];
+  currentPage: number;
+  filteredItems: Product[];
+  itemsPerPage: number;
+};
+
+export type FormType = {
+  defaultValues?: Product;
+  onSubmit: (data: Product) => void;
+  onCancel?: () => void;
+};

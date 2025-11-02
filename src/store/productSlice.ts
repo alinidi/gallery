@@ -4,7 +4,7 @@ import {
   type PayloadAction,
 } from '@reduxjs/toolkit';
 import { getProducts } from '../api/getProducts';
-import type { Product, ProductsState } from '../types/product';
+import type { Product, ProductsState } from '../types/types';
 
 export const fetchProducts = createAsyncThunk<Product[]>(
   'products/fetchProducts',

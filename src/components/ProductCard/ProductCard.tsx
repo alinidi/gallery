@@ -1,5 +1,5 @@
 import { Heart, Pen, TrashIcon } from 'lucide-react';
-import type { ProductCardType } from '../../types/product';
+import type { ProductCardType } from '../../types/types';
 import s from './ProductCard.module.scss';
 import { useNavigate } from 'react-router-dom';
 

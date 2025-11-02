@@ -10,10 +10,11 @@ import {
 } from '../../store/productSlice';
 import s from './ProductsList.module.scss';
 import { Filter } from '../Filter/Filter';
-import type { Product } from '../../types/product';
+import type { Product } from '../../types/types';
 import { Form } from '../common/Form/Form';
 import { BounceLoader } from 'react-spinners';
 import { Search } from 'lucide-react';
+import { Pagination } from '../Pagination/Pagination';
 
 export const ProductsList = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -126,27 +127,13 @@ export const ProductsList = () => {
         </div>
       )}
       {filteredItems.length > 0 && (
-        <div style={{ margin: '1rem' }}>
-          <button
-            onClick={() => setCurrentPage(currentPage - 1)}
-            disabled={currentPage === 1}
-          >
-            Prev
-          </button>
-          {Array.from({
-            length: Math.ceil(filteredItems.length / itemsPerPage),
-          }).map((_, i) => (
-            <button key={i} onClick={() => setCurrentPage(i + 1)}>
-              {i + 1}
-            </button>
-          ))}
-          <button
-            onClick={() => setCurrentPage(currentPage + 1)}
-            disabled={currentPage === Math.ceil(items.length / itemsPerPage)}
-          >
-            Next
-          </button>
-        </div>
+        <Pagination
+          setCurrentPage={setCurrentPage}
+          items={items}
+          currentPage={currentPage}
+          filteredItems={filteredItems}
+          itemsPerPage={itemsPerPage}
+        />
       )}
     </div>
   );

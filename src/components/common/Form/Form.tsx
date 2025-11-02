@@ -1,15 +1,9 @@
 import { useForm } from 'react-hook-form';
 import type { FC } from 'react';
-import type { Product } from '../../../types/product';
+import type { FormType, Product } from '../../../types/types';
 import s from './Form.module.scss';
 
-type Form = {
-  defaultValues?: Product;
-  onSubmit: (data: Product) => void;
-  onCancel?: () => void;
-};
-
-export const Form: FC<Form> = ({ defaultValues, onSubmit, onCancel }) => {
+export const Form: FC<FormType> = ({ defaultValues, onSubmit, onCancel }) => {
   const {
     register,
     handleSubmit,
